@@ -1266,3 +1266,53 @@ button {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Keep reading and ordering comfortable across screen sizes. */
+body { background: var(--paper); }
+section[id], main[id] { scroll-margin-top: calc(var(--header-h) + 16px); }
+:focus-visible { outline: 3px solid var(--green); outline-offset: 5px; }
+.skip-link { position: fixed; top: -100px; left: 16px; z-index: 200; padding: 12px 18px; background: var(--surface); }
+.skip-link:focus { top: 12px; }
+.site-header.scrolled { box-shadow: 0 1px 12px rgba(28, 26, 23, .08); }
+.nav-link[aria-current] { color: var(--green); text-decoration: underline; text-underline-offset: 6px; }
+.hero { min-height: auto; }
+.hero__content { padding: 90px 0 60px; }
+.hero__facts { position: static; transform: none; margin: 0 auto 32px; }
+.hero__media { background: linear-gradient(110deg, #f7f3ea, #e8e0d2); }
+.hero__media::before, .hero__media::after { display: none; }
+.section-heading h2, .story-copy h2, .location-shell h2 { font-size: clamp(2rem, 4.5vw, 3.8rem); line-height: 1.1; }
+.signature-card, .menu-card, .community-card, .story-quote, .owner-layout, .story-card { box-shadow: none; }
+.story-quote { min-height: 260px; background: #e8e4d8; }
+.owner-copy blockquote { font-size: clamp(2rem, 4vw, 3.6rem); }
+.owner-media { min-height: 360px; }
+.owner-media img { max-height: 560px; }
+.community-card h3 { margin-bottom: 18px; }
+.community-card:first-child .btn { margin-top: 24px; }
+.privacy-note { font-size: .85rem; }
+.form-note a, .menu-order-note a, .retry-link { text-decoration: underline; text-underline-offset: 3px; }
+.community-card .form-note--error { color: #9a3c28; }
+.story-card__text { white-space: pre-line; overflow-wrap: anywhere; }
+.story-card__meta { flex-wrap: wrap; overflow-wrap: anywhere; }
+.story-form input:disabled { background: #eee7da; }
+[hidden] { display: none !important; }
+html:not(.js) .menu-panel { display: block; margin-bottom: 20px; }
+html:not(.js) .menu-tabs, html:not(.js) .section-nav, html:not(.js) .nav-toggle, html:not(.js) .story-form { display: none !important; }
+.section-nav__dot { width: 24px; height: 24px; border: 8px solid var(--surface); padding: 0; }
+@media (max-width: 1280px) { .section-nav { display: none; } }
+@media (max-width: 1020px) {
+  .nav-links { max-height: calc(100dvh - var(--header-h)); overflow-y: auto; }
+  html:not(.js) .site-header { height: auto; position: static; }
+  html:not(.js) .nav-shell { display: flex; flex-wrap: wrap; padding-block: 12px; }
+  html:not(.js) .nav-links { display: flex; position: static; flex-direction: row; flex-wrap: wrap; width: 100%; }
+}
+@media (max-width: 760px) {
+  .hero { min-height: auto; }
+  .hero__content { padding: 56px 0 36px; }
+  .hero__facts { margin-bottom: 24px; }
+  .hero__facts div { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+  .hero__facts strong { font-size: 1rem; }
+  .section { padding: 52px 0; }
+  .signature-card--photo { min-height: 380px; }
+  .community-card { padding: 20px; min-width: 0; }
+  .btn { white-space: normal; text-align: center; padding-block: 12px; line-height: 1.35; }
+}

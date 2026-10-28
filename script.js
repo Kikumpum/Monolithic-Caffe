@@ -1,333 +1,221 @@
 (function () {
   'use strict';
-
   var WA_NUMBER = '62881024677099';
-  var SECTIONS = ['#hero', '#menu', '#experience', '#benchmark', '#cerita', '#owner', '#lokasi', '#saran'];
+  var sections = Array.from(document.querySelectorAll('main > section[id]'));
+  var labels = ['Beranda', 'Menu', 'Ruang', 'Cerita', 'Tentang kami', 'Lokasi', 'Saran'];
   var currentIndex = 0;
-
-  // Mobile nav toggle
-  var navToggle = document.getElementById('nav-toggle');
-  var navMenu = document.getElementById('nav-menu');
-
-  if (navToggle && navMenu) {
-    navToggle.addEventListener('click', function () {
-      var isOpen = navMenu.classList.toggle('open');
-      navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-      document.body.classList.toggle('nav-open', isOpen);
-    });
-
-    navMenu.querySelectorAll('.nav-link').forEach(function (link) {
-      link.addEventListener('click', function () {
-        navMenu.classList.remove('open');
-        navToggle.setAttribute('aria-expanded', 'false');
-        document.body.classList.remove('nav-open');
-      });
-    });
-  }
-
-  // Menu tabs
-  var tabs = document.querySelectorAll('.menu-tab');
-  var panels = document.querySelectorAll('.menu-panel');
-
-  tabs.forEach(function (tab) {
-    tab.addEventListener('click', function () {
-      var target = tab.dataset.tab;
-
-      tabs.forEach(function (t) {
-        t.classList.remove('active');
-        t.setAttribute('aria-selected', 'false');
-      });
-
-      panels.forEach(function (panel) {
-        panel.classList.remove('active');
-      });
-
-      tab.classList.add('active');
-      tab.setAttribute('aria-selected', 'true');
-
-      var panel = document.getElementById('tab-' + target);
-      if (panel) {
-        panel.classList.add('active');
-      }
-    });
-  });
-
-  function getNavHeight() {
-    var navbar = document.getElementById('navbar');
-    return navbar ? navbar.offsetHeight : 72;
-  }
-
-  function scrollToSection(index) {
-    if (index < 0 || index >= SECTIONS.length) return;
-
-    var target = document.querySelector(SECTIONS[index]);
-    if (!target) return;
-
-    currentIndex = index;
-    var top = target.getBoundingClientRect().top + window.scrollY - getNavHeight();
-    window.scrollTo({ top: top, behavior: 'smooth' });
-    updateSectionNav();
-  }
-
-  // Smooth scroll for anchor links
-  document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
-    anchor.addEventListener('click', function (e) {
-      var href = this.getAttribute('href');
-      if (href === '#') return;
-
-      var target = document.querySelector(href);
-      if (!target) return;
-
-      e.preventDefault();
-      var idx = SECTIONS.indexOf(href);
-      if (idx !== -1) currentIndex = idx;
-      var top = target.getBoundingClientRect().top + window.scrollY - getNavHeight();
-      window.scrollTo({ top: top, behavior: 'smooth' });
-      updateSectionNav();
-    });
-  });
-
-  // Section navigator (sidebar dots + arrows)
-  var sectionNav = document.getElementById('section-nav');
-  var navUp = document.getElementById('section-nav-up');
-  var navDown = document.getElementById('section-nav-down');
-  var dotsContainer = document.getElementById('section-nav-dots');
-  var sectionLabels = ['Beranda', 'Menu', 'Ruang', 'Referensi', 'Cerita', 'Owner', 'Lokasi', 'Saran & Cerita'];
-
-  function updateSectionNav() {
-    if (!navUp || !navDown) return;
-
-    navUp.disabled = currentIndex <= 0;
-    navDown.disabled = currentIndex >= SECTIONS.length - 1;
-
-    if (dotsContainer) {
-      dotsContainer.querySelectorAll('.section-nav__dot').forEach(function (dot, i) {
-        var isActive = i === currentIndex;
-        dot.classList.toggle('active', isActive);
-        dot.setAttribute('aria-selected', isActive ? 'true' : 'false');
-      });
-    }
-  }
-
-  function initSectionNav() {
-    if (!sectionNav || !dotsContainer || window.innerWidth < 769) return;
-
-    dotsContainer.innerHTML = '';
-    SECTIONS.forEach(function (id, i) {
-      var dot = document.createElement('button');
-      dot.type = 'button';
-      dot.className = 'section-nav__dot' + (i === 0 ? ' active' : '');
-      dot.setAttribute('role', 'tab');
-      dot.setAttribute('aria-label', sectionLabels[i] || ('Section ' + (i + 1)));
-      dot.setAttribute('aria-selected', i === 0 ? 'true' : 'false');
-      dot.addEventListener('click', function () {
-        scrollToSection(i);
-      });
-      dotsContainer.appendChild(dot);
-    });
-
-    if (navUp) {
-      navUp.addEventListener('click', function () {
-        scrollToSection(currentIndex - 1);
-      });
-    }
-
-    if (navDown) {
-      navDown.addEventListener('click', function () {
-        scrollToSection(currentIndex + 1);
-      });
-    }
-
-    updateSectionNav();
-  }
-
-  // Track active section on scroll (throttled)
-  var scrollTicking = false;
-
-  function onScrollUpdate() {
-    var navHeight = getNavHeight();
-    var scrollPos = window.scrollY + navHeight + 120;
-    var newIndex = 0;
-
-    SECTIONS.forEach(function (id, i) {
-      var el = document.querySelector(id);
-      if (el && el.offsetTop <= scrollPos) {
-        newIndex = i;
-      }
-    });
-
-    if (newIndex !== currentIndex) {
-      currentIndex = newIndex;
-      updateSectionNav();
-    }
-
-    scrollTicking = false;
-  }
-
-  window.addEventListener('scroll', function () {
-    if (!scrollTicking) {
-      scrollTicking = true;
-      requestAnimationFrame(onScrollUpdate);
-    }
-  }, { passive: true });
-
-  // Navbar shadow on scroll (throttled)
   var navbar = document.getElementById('navbar');
-  var navShadowTicking = false;
+  var navMenu = document.getElementById('nav-menu');
+  var navToggle = document.getElementById('nav-toggle');
+  var mobile = window.matchMedia('(max-width: 1020px)');
+  var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  document.documentElement.classList.add('js');
 
-  if (navbar) {
-    window.addEventListener('scroll', function () {
-      if (!navShadowTicking) {
-        navShadowTicking = true;
-        requestAnimationFrame(function () {
-          navbar.style.boxShadow = window.scrollY > 20
-            ? '0 1px 12px rgba(28, 26, 23, 0.04)'
-            : 'none';
-          navShadowTicking = false;
-        });
-      }
-    }, { passive: true });
+  function closeNav(restoreFocus) {
+    navMenu.classList.remove('open');
+    navToggle.setAttribute('aria-expanded', 'false');
+    navToggle.setAttribute('aria-label', 'Buka menu');
+    document.body.classList.remove('nav-open');
+    if (restoreFocus) navToggle.focus();
   }
+  navToggle.addEventListener('click', function () {
+    if (navMenu.classList.contains('open')) return closeNav(false);
+    navMenu.classList.add('open');
+    navToggle.setAttribute('aria-expanded', 'true');
+    navToggle.setAttribute('aria-label', 'Tutup menu');
+    document.body.classList.add('nav-open');
+  });
+  document.addEventListener('keydown', function (event) {
+    if (event.key === 'Escape' && navMenu.classList.contains('open')) closeNav(true);
+  });
+  document.addEventListener('click', function (event) {
+    if (!navbar.contains(event.target)) closeNav(false);
+  });
+  document.addEventListener('focusin', function (event) {
+    if (!navbar.contains(event.target)) closeNav(false);
+  });
+  mobile.addEventListener('change', function () { closeNav(false); });
 
-  // Falling leaves — lighter on mobile, off on small screens via CSS
-  function initFallingLeaves() {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    if (window.innerWidth < 769) return;
+  var tabs = Array.from(document.querySelectorAll('.menu-tab'));
+  function selectTab(selected, focus) {
+    tabs.forEach(function (tab) {
+      var active = tab === selected;
+      tab.classList.toggle('active', active);
+      tab.setAttribute('aria-selected', String(active));
+      tab.tabIndex = active ? 0 : -1;
+      var panel = document.getElementById('tab-' + tab.dataset.tab);
+      panel.hidden = !active;
+      panel.classList.toggle('active', active);
+    });
+    if (focus) selected.focus();
+  }
+  tabs.forEach(function (tab, index) {
+    tab.id = 'menu-tab-' + tab.dataset.tab;
+    tab.setAttribute('aria-controls', 'tab-' + tab.dataset.tab);
+    var panel = document.getElementById('tab-' + tab.dataset.tab);
+    panel.setAttribute('aria-labelledby', tab.id);
+    panel.tabIndex = 0;
+    tab.addEventListener('click', function () { selectTab(tab, false); });
+    tab.addEventListener('keydown', function (event) {
+      var next;
+      if (event.key === 'ArrowRight') next = (index + 1) % tabs.length;
+      if (event.key === 'ArrowLeft') next = (index + tabs.length - 1) % tabs.length;
+      if (event.key === 'Home') next = 0;
+      if (event.key === 'End') next = tabs.length - 1;
+      if (next !== undefined) {
+        event.preventDefault();
+        selectTab(tabs[next], true);
+      }
+    });
+  });
+  selectTab(tabs[0], false);
 
-    var container = document.getElementById('falling-leaves');
-    if (!container) return;
-
-    var leafCount = window.innerWidth < 1024 ? 8 : 12;
-    var colors = ['#6F8F72', '#3F5F46', '#8FA892'];
-
-    for (var i = 0; i < leafCount; i++) {
-      var leaf = document.createElement('span');
-      leaf.className = 'falling-leaf' + (i % 3 === 0 ? ' falling-leaf--alt' : '');
-
-      var size = 10 + Math.random() * 10;
-      var left = Math.random() * 100;
-      var duration = 14 + Math.random() * 12;
-      var delay = Math.random() * duration;
-      var drift = (Math.random() - 0.5) * 100;
-      var rotate = 180 + Math.random() * 360;
-      var opacity = 0.18 + Math.random() * 0.2;
-
-      leaf.style.setProperty('--leaf-size', size + 'px');
-      leaf.style.setProperty('--leaf-left', left + '%');
-      leaf.style.setProperty('--leaf-duration', duration + 's');
-      leaf.style.setProperty('--leaf-delay', '-' + delay + 's');
-      leaf.style.setProperty('--leaf-drift', drift + 'px');
-      leaf.style.setProperty('--leaf-rotate', rotate + 'deg');
-      leaf.style.setProperty('--leaf-opacity', opacity.toFixed(2));
-      leaf.style.setProperty('--leaf-color', colors[i % colors.length]);
-
-      container.appendChild(leaf);
+  var dots = document.getElementById('section-nav-dots');
+  var up = document.getElementById('section-nav-up');
+  var down = document.getElementById('section-nav-down');
+  function navigate(target, record) {
+    closeNav(false);
+    if (record && window.location.hash !== '#' + target.id) {
+      history.pushState(null, '', '#' + target.id);
     }
+    target.scrollIntoView({ behavior: reducedMotion.matches ? 'instant' : 'smooth', block: 'start' });
+    if (!target.hasAttribute('tabindex')) target.tabIndex = -1;
+    target.focus({ preventScroll: true });
   }
-
-  initSectionNav();
-  initFallingLeaves();
-  initStoryForm();
-  loadStories();
-  updateSectionNav();
-
-  // Customer story form → WhatsApp
-  function initStoryForm() {
-    var form = document.getElementById('story-form');
-    var storyText = document.getElementById('story-text');
-    var charCount = document.getElementById('story-char-count');
-    var formNote = document.getElementById('story-form-note');
-    var anonimCheck = document.getElementById('story-anonim');
-
-    if (!form || !storyText) return;
-
-    storyText.addEventListener('input', function () {
-      if (charCount) {
-        charCount.textContent = storyText.value.length;
-      }
+  sections.forEach(function (section, index) {
+    var dot = document.createElement('button');
+    dot.type = 'button';
+    dot.className = 'section-nav__dot';
+    dot.setAttribute('aria-label', labels[index]);
+    dot.setAttribute('aria-controls', section.id);
+    dot.addEventListener('click', function () { navigate(section, true); });
+    dots.appendChild(dot);
+  });
+  up.addEventListener('click', function () { if (currentIndex > 0) navigate(sections[currentIndex - 1], true); });
+  down.addEventListener('click', function () { if (currentIndex < sections.length - 1) navigate(sections[currentIndex + 1], true); });
+  document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
+    anchor.addEventListener('click', function (event) {
+      var target = document.getElementById(anchor.hash.slice(1));
+      if (!target || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+      event.preventDefault();
+      navigate(target, true);
     });
-
-    form.addEventListener('submit', function (e) {
-      e.preventDefault();
-
-      var text = storyText.value.trim();
-      var nameInput = document.getElementById('story-name');
-      var name = nameInput ? nameInput.value.trim() : '';
-      var isAnonim = anonimCheck && anonimCheck.checked;
-
-      if (text.length < 20) {
-        showFormNote(formNote, 'Cerita minimal 20 karakter ya.', 'error');
-        storyText.focus();
-        return;
-      }
-
-      var displayName = isAnonim ? 'Anonim' : (name || 'Pelanggan Monolithic');
-      var message = 'Halo Monolithic Kopi! Saya ingin berbagi cerita untuk website:\n\n' +
-        'Nama: ' + displayName + '\n\n' +
-        'Cerita:\n' + text + '\n\n' +
-        '_Mohon ditinjau untuk ditampilkan di website._';
-
-      var waUrl = 'https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(message);
-
-      showFormNote(formNote, 'Membuka WhatsApp... kirim pesan untuk menyelesaikan.', 'success');
-
-      window.open(waUrl, '_blank', 'noopener,noreferrer');
-
-      setTimeout(function () {
-        showFormNote(formNote, 'Cerita terkirim! Akan tampil di website setelah kami setujui.', 'success');
-        form.reset();
-        if (charCount) charCount.textContent = '0';
-      }, 800);
+  });
+  function trackSection() {
+    currentIndex = 0;
+    sections.forEach(function (section, index) {
+      if (section.getBoundingClientRect().top <= navbar.offsetHeight + 120) currentIndex = index;
     });
+    if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 2) currentIndex = sections.length - 1;
+    up.disabled = currentIndex === 0;
+    down.disabled = currentIndex === sections.length - 1;
+    Array.from(dots.children).forEach(function (dot, index) {
+      dot.classList.toggle('active', index === currentIndex);
+      if (index === currentIndex) dot.setAttribute('aria-current', 'location');
+      else dot.removeAttribute('aria-current');
+    });
+    navMenu.querySelectorAll('a').forEach(function (link) {
+      if (link.hash === '#' + sections[currentIndex].id) link.setAttribute('aria-current', 'location');
+      else link.removeAttribute('aria-current');
+    });
+    navbar.classList.toggle('scrolled', window.scrollY > 20);
   }
+  var ticking = false;
+  window.addEventListener('scroll', function () {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(function () { trackSection(); ticking = false; });
+  }, { passive: true });
+  window.addEventListener('resize', trackSection);
+  window.addEventListener('hashchange', function () {
+    var target = document.getElementById(location.hash.slice(1));
+    if (target) navigate(target, false);
+  });
+  trackSection();
 
-  function showFormNote(el, msg, type) {
-    if (!el) return;
-    el.textContent = msg;
-    el.className = 'form-note form-note--' + type;
+  var form = document.getElementById('story-form');
+  var storyText = document.getElementById('story-text');
+  var nameInput = document.getElementById('story-name');
+  var anonymous = document.getElementById('story-anonim');
+  var note = document.getElementById('story-form-note');
+  function formNote(message, error) {
+    note.textContent = message;
+    note.className = 'form-note' + (error ? ' form-note--error' : '');
+    storyText.setAttribute('aria-invalid', String(!!error));
   }
-
-  // Load approved stories from JSON
-  function loadStories() {
-    var wall = document.getElementById('stories-wall');
-    if (!wall) return;
-
-    fetch('data/stories.json')
-      .then(function (res) {
-        if (!res.ok) throw new Error('Gagal memuat');
-        return res.json();
-      })
-      .then(function (stories) {
-        renderStories(wall, stories);
-      })
-      .catch(function () {
-        wall.innerHTML = '<p class="stories-wall__empty">Belum ada cerita ditampilkan. Jadilah yang pertama berbagi!</p>';
-      });
-  }
-
-  function renderStories(container, stories) {
-    if (!stories || !stories.length) {
-      container.innerHTML = '<p class="stories-wall__empty">Belum ada cerita ditampilkan. Jadilah yang pertama berbagi!</p>';
+  storyText.addEventListener('input', function () {
+    document.getElementById('story-char-count').textContent = storyText.value.length;
+    formNote('', false);
+  });
+  anonymous.addEventListener('change', function () { nameInput.disabled = anonymous.checked; });
+  form.addEventListener('submit', function (event) {
+    event.preventDefault();
+    var text = storyText.value.trim();
+    if (text.length < 20 || text.length > 500) {
+      formNote('Tulis cerita sepanjang 20–500 karakter, ya.', true);
+      storyText.focus();
       return;
     }
+    var name = anonymous.checked ? 'Anonim' : (nameInput.value.trim() || 'Pelanggan Monolithic');
+    var message = 'Halo Monolithic Kopi! Saya ingin berbagi cerita untuk website.\n\nNama: ' + name + '\n\nCerita:\n' + text + '\n\nSaya mengizinkan cerita ini ditampilkan di website setelah ditinjau.';
+    var url = 'https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(message);
+    formNote('Lanjutkan dengan menekan Kirim di WhatsApp. Tulisanmu tetap ada di sini. Jika WhatsApp belum terbuka, ', false);
+    var fallback = document.createElement('a');
+    fallback.href = url;
+    fallback.target = '_blank';
+    fallback.rel = 'noopener noreferrer';
+    fallback.textContent = 'buka lewat tautan ini.';
+    note.appendChild(fallback);
+    window.open(url, '_blank', 'noopener,noreferrer');
+  });
 
-    container.innerHTML = stories.map(function (story) {
-      var name = escapeHtml(story.name || 'Anonim');
-      var text = escapeHtml(story.text || '');
-      var date = escapeHtml(story.date || '');
-      return '<article class="story-card">' +
-        '<p class="story-card__text">' + text + '</p>' +
-        '<div class="story-card__meta">' +
-          '<span class="story-card__name">' + name + '</span>' +
-          (date ? '<span class="story-card__date">' + date + '</span>' : '') +
-        '</div>' +
-      '</article>';
-    }).join('');
+  var wall = document.getElementById('stories-wall');
+  async function loadStories() {
+    wall.setAttribute('aria-busy', 'true');
+    wall.textContent = 'Memuat cerita…';
+    var controller = new AbortController();
+    var timeout = setTimeout(function () { controller.abort(); }, 10000);
+    try {
+      var response = await fetch('data/stories.json', { signal: controller.signal });
+      if (!response.ok) throw new Error('HTTP ' + response.status);
+      var stories = await response.json();
+      if (!Array.isArray(stories) || stories.some(function (story) {
+        return !story || typeof story.text !== 'string' || !story.text.trim() ||
+          (story.name !== undefined && typeof story.name !== 'string') ||
+          (story.date !== undefined && typeof story.date !== 'string');
+      })) throw new Error('Invalid stories');
+      wall.replaceChildren();
+      if (!stories.length) wall.textContent = 'Belum ada cerita yang ditampilkan. Kamu bisa berbagi lewat formulir di atas.';
+      stories.forEach(function (story) {
+        var card = document.createElement('article');
+        card.className = 'story-card';
+        var text = document.createElement('p');
+        text.className = 'story-card__text';
+        text.textContent = story.text;
+        var meta = document.createElement('div');
+        meta.className = 'story-card__meta';
+        var name = document.createElement('span');
+        name.className = 'story-card__name';
+        name.textContent = story.name || 'Anonim';
+        var date = document.createElement('span');
+        date.className = 'story-card__date';
+        date.textContent = story.date || '';
+        meta.append(name, date);
+        card.append(text, meta);
+        wall.appendChild(card);
+      });
+    } catch (error) {
+      wall.textContent = 'Cerita belum bisa dimuat. Periksa koneksimu, lalu ';
+      var retry = document.createElement('button');
+      retry.type = 'button';
+      retry.className = 'retry-link';
+      retry.textContent = 'coba lagi';
+      retry.addEventListener('click', loadStories);
+      wall.appendChild(retry);
+    } finally {
+      clearTimeout(timeout);
+      wall.setAttribute('aria-busy', 'false');
+    }
   }
-
-  function escapeHtml(str) {
-    var div = document.createElement('div');
-    div.textContent = str;
-    return div.innerHTML;
-  }
+  loadStories();
 })();

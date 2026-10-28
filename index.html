@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <a class="skip-link" href="#main">Langsung ke isi</a>
   <header class="site-header" id="navbar">
     <div class="container nav-shell">
       <a class="brand" href="#hero" aria-label="Monolithic Kopi">
@@ -25,14 +26,14 @@
       <nav class="nav-links" id="nav-menu" aria-label="Navigasi utama">
         <a href="#menu" class="nav-link">Menu</a>
         <a href="#experience" class="nav-link">Ruang</a>
-        <a href="#benchmark" class="nav-link">Referensi</a>
         <a href="#cerita" class="nav-link">Cerita</a>
-        <a href="#owner" class="nav-link">Owner</a>
+        <a href="#owner" class="nav-link">Tentang kami</a>
         <a href="#lokasi" class="nav-link">Lokasi</a>
+        <a href="#saran" class="nav-link">Saran</a>
       </nav>
 
-      <a class="btn btn--dark nav-cta" href="https://wa.me/62881024677099" target="_blank" rel="noopener">Order</a>
-      <button class="nav-toggle" id="nav-toggle" type="button" aria-label="Buka menu" aria-expanded="false">
+      <a class="btn btn--dark nav-cta" href="https://wa.me/62881024677099" target="_blank" rel="noopener">Pesan</a>
+      <button class="nav-toggle" id="nav-toggle" type="button" aria-label="Buka menu" aria-controls="nav-menu" aria-expanded="false">
         <span></span>
         <span></span>
         <span></span>
@@ -40,15 +41,15 @@
     </div>
   </header>
 
-  <main>
+  <main id="main" tabindex="-1">
     <section class="hero" id="hero">
       <div class="hero__media" aria-hidden="true"></div>
       <div class="container hero__content">
         <p class="eyebrow">Manggarai, Jakarta Selatan</p>
         <h1><span>Monolithic</span><span>Kopi</span></h1>
-        <p class="hero__lead">Ruang putih yang hangat untuk kopi signature, snack ringan, dan percakapan yang tidak perlu buru-buru.</p>
+        <p class="hero__lead">Mampir untuk ngopi, makan sedikit, atau ketemu teman. Kami ada di Manggarai.</p>
         <div class="hero__actions">
-          <a class="btn btn--dark" href="https://wa.me/62881024677099" target="_blank" rel="noopener">Order via WhatsApp</a>
+          <a class="btn btn--dark" href="https://wa.me/62881024677099" target="_blank" rel="noopener">Pesan lewat WhatsApp</a>
           <a class="btn btn--light" href="#menu">Lihat Menu</a>
         </div>
       </div>
@@ -59,7 +60,7 @@
         </div>
         <div>
           <span>Suasana</span>
-          <strong>White space, warm light</strong>
+          <strong>Terang dan hangat</strong>
         </div>
         <div>
           <span>Buka</span>
@@ -82,33 +83,33 @@
       <div class="container">
         <div class="section-heading">
           <p class="eyebrow">Menu</p>
-          <h2>Yang paling dicari dulu, detailnya tetap lengkap.</h2>
-          <p>Struktur menu dibuat cepat dipindai: signature, latte, non-coffee, snack, dan pastry.</p>
+          <h2>Mau minum apa hari ini?</h2>
+          <p>Mulai dari Iwagumi Coffee, kopi buah, sampai matcha. Ada camilan juga kalau lapar.</p>
         </div>
 
         <div class="signature-grid">
           <article class="signature-card signature-card--photo signature-card--product signature-card--product-light">
-            <img src="iwagumi.jpeg" alt="Iwagumi Coffee Monolithic Kopi">
+            <img loading="lazy" decoding="async" src="iwagumi.jpeg" alt="Iwagumi Coffee Monolithic Kopi">
             <div>
               <span class="pill">Signature</span>
               <h3>Iwagumi Coffee</h3>
-              <p>Kopi utama Monolithic: seimbang, earthy, lembut, dan cocok jadi rasa pertama untuk tamu baru.</p>
+              <p>Kopi khas Monolithic dengan rasa lembut dan sentuhan earthy.</p>
             </div>
           </article>
           <article class="signature-card signature-card--photo signature-card--product">
-            <img src="Americano%20Japanise%20Peach%20.jpeg" alt="Americano Japanise Peach Monolithic Kopi">
+            <img loading="lazy" decoding="async" src="Americano%20Japanise%20Peach%20.jpeg" alt="Americano Japanese Peach Monolithic Kopi">
             <div>
             <span class="pill">Recommended</span>
-              <h3>Americano Japanise Peach</h3>
-              <p>Americano dingin dengan sentuhan peach yang clean, ringan, dan segar.</p>
+              <h3>Americano Japanese Peach</h3>
+              <p>Americano dingin dengan rasa peach yang segar.</p>
             </div>
           </article>
           <article class="signature-card signature-card--photo signature-card--product">
-            <img src="match.jpeg" alt="Matcha Latte Monolithic Kopi">
+            <img loading="lazy" decoding="async" src="match.jpeg" alt="Matcha Latte Monolithic Kopi">
             <div>
               <span class="pill">Non Coffee</span>
               <h3>Matcha Latte</h3>
-              <p>Matcha creamy untuk pengunjung yang ingin tetap santai tanpa espresso.</p>
+              <p>Matcha dan susu, untuk yang sedang ingin minum selain kopi.</p>
             </div>
           </article>
         </div>
@@ -126,17 +127,17 @@
             <article class="menu-card menu-card--featured">
               <span>Favorit</span>
               <h3>Iwagumi Coffee</h3>
-              <p>Signature blend, clean, earthy, dan tenang.</p>
+              <p>Kopi khas kami, lembut dengan sentuhan earthy.</p>
             </article>
             <article class="menu-card">
               <span>Fresh</span>
-              <h3>Americano Japanise Peach</h3>
+              <h3>Americano Japanese Peach</h3>
               <p>Americano dengan sentuhan peach yang segar.</p>
             </article>
             <article class="menu-card">
               <span>Classic</span>
               <h3>Americano</h3>
-              <p>Espresso dan air panas, clean dan bold.</p>
+              <p>Espresso dan air, dengan rasa kopi yang tegas.</p>
             </article>
             <article class="menu-card">
               <span>Daily</span>
@@ -161,7 +162,7 @@
             <article class="menu-card">
               <span>Comfort</span>
               <h3>Taro Latte</h3>
-              <p>Ubi ungu creamy dan hangat.</p>
+              <p>Minuman rasa taro dengan susu.</p>
             </article>
             <article class="menu-card">
               <span>Classic milk</span>
@@ -245,11 +246,12 @@
             </article>
             <article class="menu-card">
               <span>Warm</span>
-              <h3>Curros</h3>
+              <h3>Churros</h3>
               <p>Churros hangat dengan saus cokelat.</p>
             </article>
           </div>
         </div>
+        <p class="menu-order-note">Untuk harga dan ketersediaan hari ini, <a href="https://wa.me/62881024677099?text=Halo%20Monolithic%2C%20boleh%20minta%20menu%20dan%20harga%20hari%20ini%3F" target="_blank" rel="noopener noreferrer">tanya kami di WhatsApp</a>.</p>
       </div>
     </section>
 
@@ -257,57 +259,24 @@
       <div class="container split-layout">
         <div class="section-heading section-heading--left">
           <p class="eyebrow">Ruang</p>
-          <h2>Arsitektur pengalaman untuk duduk lebih lama.</h2>
-          <p>Monolithic diposisikan sebagai tempat singgah harian: cukup hangat untuk ngobrol, cukup tenang untuk bekerja, dan cukup jelas untuk langsung pesan.</p>
+          <h2>Silakan duduk dulu.</h2>
+          <p>Datang sendiri dengan laptop atau janjian dengan teman, cari tempat duduk yang paling nyaman buatmu.</p>
         </div>
         <div class="experience-list">
           <article>
             <span>01</span>
-            <h3>White space</h3>
-            <p>Ruang visual dibuat bersih supaya logo, menu, dan CTA mudah ditemukan tanpa banyak distraksi.</p>
+            <h3>Ruang terang</h3>
+            <p>Dinding putih dan ruang yang lapang menemani kopi pertamamu hari ini.</p>
           </article>
           <article>
             <span>02</span>
-            <h3>Warm light</h3>
-            <p>Palet hangat menjaga rasa kafe tetap dekat, tidak terlalu klinis, dan nyaman untuk sore sampai malam.</p>
+            <h3>Cahaya hangat</h3>
+            <p>Sore lewat, obrolan masih lanjut. Duduk sebentar lagi juga boleh.</p>
           </article>
           <article>
             <span>03</span>
-            <h3>Green corner</h3>
-            <p>Aksen hijau memberi koneksi ke suasana teduh, cocok dengan narasi pindah dari Rawajati ke Manggarai.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section benchmark-section" id="benchmark">
-      <div class="container">
-        <div class="section-heading">
-          <p class="eyebrow">Referensi tempat kopi terbaik</p>
-          <h2>Benchmark global, rasa lokal Jakarta.</h2>
-          <p>Referensi dipakai sebagai standar pengalaman: kualitas kopi, teknik barista, atmosfer ruang, makanan pendamping, dan konsistensi layanan.</p>
-        </div>
-
-        <div class="benchmark-grid">
-          <article class="benchmark-card">
-            <span>Global #1</span>
-            <h3>Onyx Coffee LAB</h3>
-            <p>Diambil sebagai acuan keberanian brand, kurasi kopi, dan presentasi produk yang jelas.</p>
-          </article>
-          <article class="benchmark-card">
-            <span>Global #2</span>
-            <h3>Tim Wendelboe</h3>
-            <p>Menjadi referensi disiplin rasa, edukasi kopi, dan komunikasi yang sederhana.</p>
-          </article>
-          <article class="benchmark-card">
-            <span>Asia #6</span>
-            <h3>Apartment Coffee</h3>
-            <p>Menjadi acuan ruang minimal, intimate, dan sangat fokus pada pengalaman minum.</p>
-          </article>
-          <article class="benchmark-card">
-            <span>Jakarta scene</span>
-            <h3>Common Grounds, 1/15, Giyanti</h3>
-            <p>Rujukan lokal untuk specialty coffee, brunch culture, desain hangat, dan komunitas.</p>
+            <h3>Sudut hijau</h3>
+            <p>Tanaman di sudut ruang memberi sedikit suasana teduh di tengah kota.</p>
           </article>
         </div>
       </div>
@@ -317,12 +286,12 @@
       <div class="container story-layout">
         <div class="story-copy">
           <p class="eyebrow">Cerita</p>
-          <h2>Dari Rawajati yang padam, ke Manggarai yang kembali teduh.</h2>
-          <p>Monolithic Kopi pernah tumbuh pelan di Rawajati. Di sana, banyak cangkir pertama diseduh, banyak percakapan kecil lahir, dan banyak orang datang bukan hanya untuk minum kopi, tapi untuk merasa pulang.</p>
-          <p>Kini Monolithic Kopi membuka ruang baru di Manggarai. Bukan untuk menghapus tempat lama, tetapi membawa memorinya ke tempat yang lebih putih, lebih hangat, dan lebih siap mendengar.</p>
+          <h2>Dulu di Rawajati. Sekarang di Manggarai.</h2>
+          <p>Monolithic Kopi berawal di Rawajati. Terima kasih untuk yang pernah mampir, mengajak teman, atau jadi pelanggan tetap di sana.</p>
+          <p>Sekarang kami ada di Manggarai. Untuk wajah lama maupun yang baru pertama datang, sampai ketemu di kedai.</p>
         </div>
         <blockquote class="story-quote">
-          Beberapa tempat memang tutup. Tapi rasa yang pernah tinggal di sana kadang menemukan jalannya untuk pulang kembali.
+          Pernah mampir ke Rawajati? Ceritakan kunjunganmu lewat formulir di bawah.
         </blockquote>
       </div>
     </section>
@@ -330,15 +299,15 @@
     <section class="section owner-section" id="owner">
       <div class="container owner-layout">
         <div class="owner-media">
-          <img src="CEO.jpeg" alt="Owner Monolithic Kopi">
+          <img loading="lazy" decoding="async" src="CEO.jpeg" alt="Owner Monolithic Kopi">
         </div>
         <div class="owner-copy">
-          <p class="eyebrow">Catatan Owner</p>
+          <p class="eyebrow">Tentang kami</p>
           <blockquote>
-            "Kopi yang baik tidak hanya berhenti di rasa. Ia harus bisa membuat orang merasa diterima, punya jeda, dan pulang dengan hati yang sedikit lebih ringan."
+            Kenalan di kedai.
           </blockquote>
-          <p>Monolithic Kopi dibangun sebagai ruang kecil untuk menjaga hal-hal sederhana: menyapa dengan hangat, menyeduh dengan sabar, dan memberi tempat untuk cerita yang belum sempat selesai.</p>
-          <span>- Owner Monolithic Kopi</span>
+          <p>Belum tahu mau pesan apa? Tanya saja ke tim kami. Ceritakan kopi yang kamu suka, nanti kita cari pilihan yang pas.</p>
+          <span>Monolithic Kopi</span>
         </div>
       </div>
     </section>
@@ -352,7 +321,7 @@
         </div>
         <div class="location-actions">
           <a class="btn btn--dark" href="https://maps.app.goo.gl/MKnSWNqv1nEqCguE6" target="_blank" rel="noopener noreferrer">Buka Maps</a>
-          <a class="btn btn--light" href="https://wa.me/62881024677099" target="_blank" rel="noopener">Reservasi</a>
+          <a class="btn btn--light" href="https://wa.me/62881024677099" target="_blank" rel="noopener">Tanya reservasi</a>
         </div>
       </div>
     </section>
@@ -362,7 +331,7 @@
         <div class="section-heading">
           <p class="eyebrow">Komunitas</p>
           <h2>Saran dan cerita dari pelanggan.</h2>
-          <p>Cerita baru bisa dikirim lewat WhatsApp, lalu ditampilkan setelah disetujui.</p>
+          <p>Punya saran atau cerita setelah mampir? Kirim ke tim kami lewat WhatsApp. Cerita untuk website akan kami tinjau terlebih dahulu.</p>
         </div>
 
         <div class="community-grid">
@@ -380,14 +349,16 @@
 
               <label class="checkbox-label">
                 <input type="checkbox" id="story-anonim" name="anonim">
-                <span>Tampil sebagai Anonim</span>
+                <span>Sembunyikan nama di website</span>
               </label>
 
-              <label for="story-text">Ceritamu</label>
-              <textarea id="story-text" name="story" rows="5" placeholder="Tulis momen kamu di Monolithic Kopi..." required minlength="20" maxlength="500"></textarea>
-              <span class="form-hint"><span id="story-char-count">0</span>/500 karakter</span>
+              <p class="privacy-note">Nama dapat disembunyikan saat cerita dimuat. Nomor WhatsApp tetap terlihat oleh tim kami. Dengan mengirim cerita, kamu mengizinkan kami menampilkannya di website setelah ditinjau.</p>
 
-              <button class="btn btn--dark btn--full" type="submit">Kirim Cerita</button>
+              <label for="story-text">Ceritamu</label>
+              <textarea id="story-text" name="story" rows="5" aria-describedby="story-hint story-form-note" placeholder="Tulis momen kamu di Monolithic Kopi..." required minlength="20" maxlength="500"></textarea>
+              <span class="form-hint" id="story-hint"><span id="story-char-count">0</span>/500 karakter</span>
+
+              <button class="btn btn--dark btn--full" type="submit">Lanjut ke WhatsApp</button>
               <p class="form-note" id="story-form-note" role="status" aria-live="polite"></p>
             </form>
           </article>
@@ -403,10 +374,10 @@
     </section>
   </main>
 
-  <nav class="section-nav" id="section-nav" aria-label="Navigasi section">
-    <button type="button" class="section-nav__btn" id="section-nav-up" aria-label="Section sebelumnya" disabled>Up</button>
-    <div class="section-nav__dots" id="section-nav-dots" role="tablist" aria-label="Daftar section"></div>
-    <button type="button" class="section-nav__btn" id="section-nav-down" aria-label="Section berikutnya">Down</button>
+  <nav class="section-nav" id="section-nav" aria-label="Navigasi bagian">
+    <button type="button" class="section-nav__btn" id="section-nav-up" aria-label="Bagian sebelumnya" disabled>Up</button>
+    <div class="section-nav__dots" id="section-nav-dots" aria-label="Daftar bagian"></div>
+    <button type="button" class="section-nav__btn" id="section-nav-down" aria-label="Bagian berikutnya">Down</button>
   </nav>
 
   <footer class="footer">
@@ -428,6 +399,7 @@
     </div>
   </footer>
 
+  <noscript><p class="container">Untuk pesan atau reservasi, gunakan tautan WhatsApp. Formulir cerita memerlukan JavaScript.</p></noscript>
   <script src="script.js"></script>
 </body>
 </html>
