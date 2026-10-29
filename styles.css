@@ -932,29 +932,30 @@ button {
   font-weight: 700;
 }
 
+/* A quiet margin marker, using the same paper and coffee tones as the page. */
 .section-nav {
   position: fixed;
   top: 50%;
-  right: 18px;
+  right: 14px;
   z-index: 80;
   display: grid;
-  gap: 8px;
+  justify-items: center;
+  gap: 2px;
   transform: translateY(-50%);
-  padding: 8px;
-  border: 1px solid rgba(25, 23, 20, 0.12);
-  border-radius: 999px;
-  background: rgba(255, 253, 248, 0.86);
-  box-shadow: var(--soft-shadow);
-  backdrop-filter: blur(14px);
+  padding: 6px 2px;
+  border-radius: 4px;
+  background: rgba(247, 243, 234, 0.94);
+  color: var(--coffee);
 }
 
 .section-nav__btn {
-  width: 32px;
-  height: 32px;
+  width: 28px;
+  height: 28px;
+  padding: 0;
   overflow: hidden;
-  border-radius: 50%;
   color: transparent;
   position: relative;
+  border-radius: 3px;
 }
 
 .section-nav__btn::before {
@@ -962,42 +963,49 @@ button {
   position: absolute;
   inset: 0;
   margin: auto;
-  width: 8px;
-  height: 8px;
-  border-top: 2px solid var(--coffee);
-  border-left: 2px solid var(--coffee);
+  width: 6px;
+  height: 6px;
+  border-top: 1px solid var(--coffee);
+  border-left: 1px solid var(--coffee);
 }
 
-#section-nav-up::before {
-  transform: translateY(3px) rotate(45deg);
-}
-
-#section-nav-down::before {
-  transform: translateY(-3px) rotate(225deg);
-}
-
-.section-nav__btn:disabled {
-  opacity: 0.3;
-  cursor: not-allowed;
-}
-
-.section-nav__dots {
-  display: grid;
-  justify-items: center;
-  gap: 8px;
-}
+#section-nav-up::before { transform: translateY(2px) rotate(45deg); }
+#section-nav-down::before { transform: translateY(-2px) rotate(225deg); }
+.section-nav__btn:disabled { opacity: 0.25; cursor: default; }
+.section-nav__dots { display: grid; justify-items: center; gap: 0; }
 
 .section-nav__dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: rgba(49, 93, 67, 0.25);
+  position: relative;
+  width: 28px;
+  height: 26px;
+  padding: 0;
+  background: transparent;
+  border-radius: 3px;
 }
 
-.section-nav__dot.active {
-  background: var(--green);
-  transform: scale(1.2);
+.section-nav__dot::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--coffee);
+  opacity: 0.3;
+  transform: translate(-50%, -50%);
+  transition: opacity 160ms ease, height 160ms ease;
 }
+
+.section-nav__dot.active::before {
+  height: 14px;
+  border-radius: 2px;
+  opacity: 0.9;
+}
+
+.section-nav__dot:hover::before { opacity: 0.75; }
+.section-nav__btn:not(:disabled):hover { background: rgba(81, 55, 43, 0.06); }
+.section-nav :focus-visible { outline: 2px solid var(--coffee); outline-offset: 1px; }
 
 .footer {
   padding: 48px 0;
@@ -1297,7 +1305,6 @@ section[id], main[id] { scroll-margin-top: calc(var(--header-h) + 16px); }
 [hidden] { display: none !important; }
 html:not(.js) .menu-panel { display: block; margin-bottom: 20px; }
 html:not(.js) .menu-tabs, html:not(.js) .section-nav, html:not(.js) .nav-toggle, html:not(.js) .story-form { display: none !important; }
-.section-nav__dot { width: 24px; height: 24px; border: 8px solid var(--surface); padding: 0; }
 @media (max-width: 1280px) { .section-nav { display: none; } }
 @media (max-width: 1020px) {
   .nav-links { max-height: calc(100dvh - var(--header-h)); overflow-y: auto; }
